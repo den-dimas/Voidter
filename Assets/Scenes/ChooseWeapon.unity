@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 129641774}
   - component: {fileID: 129641773}
   m_Layer: 0
-  m_Name: BigSpaceGunPickup
+  m_Name: WeaponPickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

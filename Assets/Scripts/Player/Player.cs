@@ -2,13 +2,16 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    // This for getting the instace of Player Singleton
     public static Player Instance { get; private set; }
 
-
+    // Getting the PlayerMovement methods
     PlayerMovement playerMovement;
+    // Animator
     Animator animator;
 
 
+    // Key for Singleton
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -22,18 +25,23 @@ public class Player : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    // Getting Component
     void Start()
     {
+        // Get PlayerMovement components
         playerMovement = GetComponent<PlayerMovement>();
 
+        // Get Animator components
         animator = GameObject.Find("EngineEffects").GetComponent<Animator>();
     }
 
+    // Using FixedUpdate to Move because of physics
     void FixedUpdate()
     {
         playerMovement.Move();
     }
 
+    // LateUpdate for animation related
     void LateUpdate()
     {
         playerMovement.MoveBound();
