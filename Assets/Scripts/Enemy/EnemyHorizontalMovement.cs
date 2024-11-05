@@ -1,27 +1,54 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyHorizontalMovement : MonoBehaviour
+public class EnemyHorizontalMovement : Enemy
 {
-    public float horizontalSpeed = 3f;
-    public float horizontalRange = 5f;
+    [SerializeField] private float moveSpeed = 5f;
 
-    private float startX;
+    private Vector2 dir;
 
-    void Start()
+    private void Awake()
     {
-        startX = transform.position.x;
-        StartCoroutine(MoveHorizontally());
+        PickRandomPositions();
     }
 
-    IEnumerator MoveHorizontally()
+    private void Update()
     {
-        while (true)
+        transform.Translate(moveSpeed * Time.deltaTime * dir);
+
+        Vector3 ePos = Camera.main.WorldToViewportPoint(new(transform.position.x, transform.position.y, transform.position.z));
+
+        if (ePos.x < -0.05f && dir == Vector2.right)
         {
-            float x = Mathf.PingPong(Time.time * horizontalSpeed, horizontalRange) - horizontalRange / 2;
-            transform.position = new Vector2(startX + x, transform.position.y);
-            yield return null;
+            PickRandomPositions();
         }
+        if (ePos.x > 1.05f && dir == Vector2.left)
+        {
+            PickRandomPositions();
+        }
+    }
+
+    private void PickRandomPositions()
+    {
+        Vector2 randPos;
+
+        if (Random.Range(-1, 1) >= 0)
+        {
+            dir = Vector2.right;
+        }
+        else
+        {
+            dir = Vector2.left;
+        }
+
+        if (dir == Vector2.right)
+        {
+            randPos = new(1.1f, Random.Range(0.1f, 0.95f));
+        }
+        else
+        {
+            randPos = new(-0.01f, Random.Range(0.1f, 0.95f));
+        }
+
+        transform.position = Camera.main.ViewportToWorldPoint(randPos) + new Vector3(0, 0, 10);
     }
 }

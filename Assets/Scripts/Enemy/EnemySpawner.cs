@@ -1,25 +1,27 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
     public Enemy[] enemyVariants;
+    private List<Enemy> spawnedEnemies = new();
 
-    public int killsRequiredToIncreaseDifficulty = 10;
+    [SerializeField] private float initialSpawnDelay = 3f;
+    [SerializeField] private float initialSpawnInterval = 5f;
 
-    public float initialSpawnDelay = 3f;
-    public float initialSpawnInterval = 5f;
-
-
-    private int totalKills = 0;
     private int difficultyLevel = 1;
 
-    private float spawnInterval;
+    public int killLimit = 10;
+    public int totalKills = 0;
 
+    private float spawnInterval;
 
     void Start()
     {
         spawnInterval = initialSpawnInterval;
+
+        SelectSpawnedEnemies();
 
         StartCoroutine(SpawnEnemies());
     }
@@ -39,22 +41,39 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnEnemyBasedOnDifficulty()
     {
-        if (totalKills >= difficultyLevel * killsRequiredToIncreaseDifficulty)
+        if (totalKills >= difficultyLevel * killLimit)
         {
             difficultyLevel++;
+
             spawnInterval = Mathf.Max(1f, initialSpawnInterval - (difficultyLevel * 0.5f));
+
+            SelectSpawnedEnemies();
         }
 
-        int enemyIndex = Random.Range(0, Mathf.Min(difficultyLevel, enemyVariants.Length));
+        for (int i = 0; i < spawnedEnemies.Count; i++)
+        {
+            Enemy obj = Instantiate(spawnedEnemies[i]);
 
-        Vector2 spawnPoint = Camera.main.ViewportToWorldPoint(new(Random.Range(-0.05f, 1.05f), 1.05f));
-
-        Instantiate(enemyVariants[enemyIndex], (Vector3)spawnPoint, Quaternion.identity);
+            obj.enemySpawner = this;
+            obj.transform.parent = transform;
+        }
     }
-
 
     public void OnEnemyKilled()
     {
         totalKills++;
+    }
+
+    private void SelectSpawnedEnemies()
+    {
+        spawnedEnemies.Clear();
+
+        for (int i = 0; i < enemyVariants.Length; i++)
+        {
+            if (enemyVariants[i].GetLevel() <= difficultyLevel)
+            {
+                spawnedEnemies.Add(enemyVariants[i]);
+            }
+        }
     }
 }

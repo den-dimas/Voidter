@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyTargetPlayer : MonoBehaviour
+public class EnemyTargetPlayer : Enemy
 {
-    public float speed = 4f;
+    public float speed = 2f;
+
     private Transform player;
 
     void Start()
@@ -17,7 +16,16 @@ public class EnemyTargetPlayer : MonoBehaviour
         if (player != null)
         {
             Vector2 direction = (player.position - transform.position).normalized;
-            transform.Translate(speed * Time.deltaTime * direction);
+
+            transform.Translate(speed * Time.deltaTime * -1f * direction);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            Destroy(gameObject);
         }
     }
 }

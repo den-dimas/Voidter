@@ -1,13 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyForwardMovement : Enemy
 {
-    public float speed = 5f;
+    [SerializeField] private float moveSpeed = 5f;
 
-    void Update()
+    private void Awake()
     {
-        transform.Translate(speed * Time.deltaTime * Vector2.up);
+        PickRandomPositions();
+    }
+
+    private void Update()
+    {
+        transform.Translate(moveSpeed * Time.deltaTime * Vector2.up);
+
+        if (Camera.main.WorldToViewportPoint(new(transform.position.x, transform.position.y, transform.position.z)).y < -0.05f)
+        {
+            PickRandomPositions();
+        }
+    }
+
+    private void PickRandomPositions()
+    {
+        Vector2 randPos = new(Random.Range(0.1f, 0.99f), 1.1f);
+
+        transform.position = Camera.main.ViewportToWorldPoint(randPos) + new Vector3(0, 0, 10);
     }
 }

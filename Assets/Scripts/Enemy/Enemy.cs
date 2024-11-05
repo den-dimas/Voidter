@@ -1,14 +1,23 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-  public int Level { get; private set; }
+  [SerializeField] protected int level;
 
-  private void Awake()
+  public EnemySpawner enemySpawner;
+
+  public void SetLevel(int level)
   {
-    Level = Mathf.CeilToInt(GetComponent<HealthComponent>().maxHealth / 100);
+    this.level = level;
+  }
+
+  public int GetLevel()
+  {
+    return level;
+  }
+
+  private void OnDestroy()
+  {
+    enemySpawner.OnEnemyKilled();
   }
 }
