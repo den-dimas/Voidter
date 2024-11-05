@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 8985860015168978803}
   - component: {fileID: 4921203806143689509}
   m_Layer: 0
-  m_Name: Enemy Horizontal
+  m_Name: EnemyHorizontal
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -204,5 +204,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44b8658a0c46c164db8bc3f7287b3b2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizontalSpeed: 5
-  horizontalRange: 15
+  level: 1
+  moveSpeed: 5
