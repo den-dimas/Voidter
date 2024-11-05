@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Pool;
 
 public class Bullet : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class Bullet : MonoBehaviour
     public float bulletSpeed = 20;
     public int damage = 10;
 
+
+    public IObjectPool<Bullet> objectPool;
 
     Rigidbody2D rb;
 
@@ -29,7 +32,7 @@ public class Bullet : MonoBehaviour
 
         if (ppos.y > 1.01f)
         {
-            Destroy(gameObject);
+            objectPool.Release(this);
         }
     }
 
@@ -38,7 +41,8 @@ public class Bullet : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             // Damage enemy
-            Destroy(gameObject);
+            other.gameObject.GetComponent<HitboxComponent>().Damage(this);
+            objectPool.Release(this);
         }
     }
 }
