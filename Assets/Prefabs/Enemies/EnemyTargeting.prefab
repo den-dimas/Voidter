@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5187066745116256985}
   - component: {fileID: 3679157491290017707}
   - component: {fileID: 7717004117208486467}
+  - component: {fileID: 4744900814887117751}
   m_Layer: 0
   m_Name: EnemyTargeting
   m_TagString: Enemy
@@ -192,3 +193,17 @@ MonoBehaviour:
   level: 2
   enemySpawner: {fileID: 0}
   speed: 4
+--- !u!114 &4744900814887117751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8237471335540643467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05b6f35dec967134e9fc3fa6a6ab7302, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 0}
+  damage: 20

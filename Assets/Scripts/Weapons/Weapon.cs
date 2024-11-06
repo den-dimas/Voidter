@@ -7,15 +7,15 @@ public class Weapon : MonoBehaviour
     [Header("Weapon Stats")]
     [SerializeField] private float shootIntervalInSeconds = 3f;
 
-
     [Header("Bullets")]
     public Bullet bullet;
+
     private IObjectPool<Bullet> objectPool;
 
-    private bool collectionCheck = true;
+    private bool collectionCheck = false;
 
-    private int defaultCapacity = 20;
-    private int maxSize = 50;
+    private int defaultCapacity = 30;
+    private int maxSize = 100;
 
     public Transform parentTransform;
 
@@ -31,9 +31,9 @@ public class Weapon : MonoBehaviour
     private void Shoot()
     {
         Bullet bulletObj = objectPool.Get();
-        GameObject obj = GameObject.Find("BulletSpawnPoint");
+        Transform obj = transform.Find("BulletSpawnPoint");
 
-        bulletObj.transform.SetPositionAndRotation(obj.transform.position, obj.transform.rotation);
+        bulletObj.transform.SetPositionAndRotation(obj.position, obj.rotation);
     }
 
 

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 9045181798202345500}
   - component: {fileID: 3187352730756927348}
   - component: {fileID: 1182411902907367845}
+  - component: {fileID: 3312207028951897723}
   m_Layer: 0
   m_Name: EnemyForward
   m_TagString: Enemy
@@ -205,4 +206,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 1
+  enemySpawner: {fileID: 0}
   moveSpeed: 5
+--- !u!114 &3312207028951897723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3735781002023741944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccc1304ed5e176f40956cfc6a56499b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blinkingCount: 10
+  blinkInterval: 0.1
+  blinkMaterial: {fileID: 2100000, guid: 06689a3a9bab84044bae22d9968a0502, type: 2}
+  isInvincible: 0
