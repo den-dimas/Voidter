@@ -9,27 +9,25 @@ public class Bullet : MonoBehaviour
     public float bulletSpeed = 20;
     public int damage = 10;
 
+    private Rigidbody2D rb;
+
     public IObjectPool<Bullet> objectPool;
-
-    Rigidbody2D rb;
-
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
     }
 
-
     private void FixedUpdate()
     {
-        rb.velocity = bulletSpeed * Time.deltaTime * new Vector2(0, transform.forward.z);
+        rb.velocity = bulletSpeed * Time.deltaTime * transform.up;
     }
 
     private void Update()
     {
         Vector2 ppos = Camera.main.WorldToViewportPoint(transform.position);
 
-        if (ppos.y >= 1.01f || ppos.y <= -0.01f)
+        if (ppos.y >= 1.01f || ppos.y <= -0.01f && objectPool != null)
         {
             objectPool.Release(this);
         }
@@ -39,7 +37,6 @@ public class Bullet : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            // Damage enemy
             other.gameObject.GetComponent<HitboxComponent>().Damage(this);
             objectPool.Release(this);
         }

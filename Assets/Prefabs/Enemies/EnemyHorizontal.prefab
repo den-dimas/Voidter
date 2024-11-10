@@ -12,10 +12,11 @@ GameObject:
   - component: {fileID: 6681267888507003759}
   - component: {fileID: 2023966658304645388}
   - component: {fileID: 5789206676808499698}
+  - component: {fileID: 4921203806143689509}
   - component: {fileID: 7409569023550178795}
   - component: {fileID: 1794735360739659443}
   - component: {fileID: 8985860015168978803}
-  - component: {fileID: 4921203806143689509}
+  - component: {fileID: -5709186180047967220}
   m_Layer: 0
   m_Name: EnemyHorizontal
   m_TagString: Enemy
@@ -152,6 +153,23 @@ CircleCollider2D:
   m_Offset: {x: -0.001831025, y: 0.4179639}
   serializedVersion: 2
   m_Radius: 0.1898646
+--- !u!114 &4921203806143689509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1025172446216928611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44b8658a0c46c164db8bc3f7287b3b2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: 1
+  enemyKilledEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  moveSpeed: 5
 --- !u!114 &7409569023550178795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,7 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaa892c274887a44c9d5078d3ab12792, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 50
 --- !u!114 &8985860015168978803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,7 +210,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 0}
   damage: 10
---- !u!114 &4921203806143689509
+--- !u!114 &-5709186180047967220
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -201,8 +219,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1025172446216928611}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44b8658a0c46c164db8bc3f7287b3b2c, type: 3}
+  m_Script: {fileID: 11500000, guid: ccc1304ed5e176f40956cfc6a56499b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 1
-  moveSpeed: 5
+  blinkingCount: 3
+  blinkInterval: 0.05
+  blinkMaterial: {fileID: 2100000, guid: 06689a3a9bab84044bae22d9968a0502, type: 2}
+  isInvincible: 0

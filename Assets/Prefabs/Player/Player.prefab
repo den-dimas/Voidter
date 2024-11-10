@@ -437,7 +437,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blinkingCount: 3
   blinkInterval: 0.333
-  blinkMaterial: {fileID: 2100000, guid: 06689a3a9bab84044bae22d9968a0502, type: 2}
+  blinkMaterial: {fileID: 2100000, guid: 7354f83f4a7e2744780fad1f2cca919b, type: 2}
   isInvincible: 0
 --- !u!1 &8942394637720830276
 GameObject:

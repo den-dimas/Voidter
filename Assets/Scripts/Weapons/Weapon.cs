@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.Pool;
 
 public class Weapon : MonoBehaviour
@@ -7,23 +8,30 @@ public class Weapon : MonoBehaviour
     [Header("Weapon Stats")]
     [SerializeField] private float shootIntervalInSeconds = 3f;
 
+
     [Header("Bullets")]
     public Bullet bullet;
+    [SerializeField] private Transform bulletSpawnPoint;
 
+
+    [Header("Bullet Pool")]
     private IObjectPool<Bullet> objectPool;
 
-    private bool collectionCheck = false;
-
-    private int defaultCapacity = 30;
-    private int maxSize = 100;
-
-    public Transform parentTransform;
+    private readonly bool collectionCheck = false;
+    private readonly int defaultCapacity = 30;
+    private readonly int maxSize = 100;
 
 
     private float timer;
 
+
+    public Transform parentTransform;
+
+
     private void Awake()
     {
+        Assert.IsNotNull(bulletSpawnPoint);
+
         objectPool = new ObjectPool<Bullet>(CreateBullet, OnGetFromPool, OnReleaseToPool, OnDestroyPooledObject, collectionCheck, defaultCapacity, maxSize);
     }
 
@@ -31,9 +39,8 @@ public class Weapon : MonoBehaviour
     private void Shoot()
     {
         Bullet bulletObj = objectPool.Get();
-        Transform obj = transform.Find("BulletSpawnPoint");
 
-        bulletObj.transform.SetPositionAndRotation(obj.position, obj.rotation);
+        bulletObj.transform.SetPositionAndRotation(bulletSpawnPoint.position, bulletSpawnPoint.rotation);
     }
 
 

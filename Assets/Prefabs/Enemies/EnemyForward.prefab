@@ -178,7 +178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaa892c274887a44c9d5078d3ab12792, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 50
 --- !u!114 &3187352730756927348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,7 +220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccc1304ed5e176f40956cfc6a56499b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blinkingCount: 10
-  blinkInterval: 0.1
+  blinkingCount: 3
+  blinkInterval: 0.05
   blinkMaterial: {fileID: 2100000, guid: 06689a3a9bab84044bae22d9968a0502, type: 2}
   isInvincible: 0

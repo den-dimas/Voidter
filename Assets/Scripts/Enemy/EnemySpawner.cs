@@ -1,79 +1,73 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public Enemy[] enemyVariants;
-    private List<Enemy> spawnedEnemies = new();
+    [Header("Enemy Prefabs")]
+    public Enemy spawnedEnemy;
 
-    [SerializeField] private float initialSpawnDelay = 3f;
-    [SerializeField] private float initialSpawnInterval = 5f;
+    [SerializeField] private int minimumKillsToIncreaseSpawnCount = 3;
+    public int totalKill = 0;
+    private int totalKillWave = 0;
 
-    private int difficultyLevel = 1;
+    [SerializeField] private float spawnInterval = 3f;
 
-    public int killLimit = 10;
-    public int totalKills = 0;
+    [Header("Spawned Enemies Counter")]
+    public int spawnCount = 0;
+    public int defaultSpawnCount = 1;
+    public int spawnCountMultiplier = 1;
+    public int multiplierIncreaseCount = 1;
 
-    private float spawnInterval;
+    public CombatManager combatManager;
 
-    void Start()
+    public bool isSpawning = false;
+
+    private void Start()
     {
-        spawnInterval = initialSpawnInterval;
-
-        SelectSpawnedEnemies();
-
-        StartCoroutine(SpawnEnemies());
+        spawnCount = defaultSpawnCount;
     }
 
-
-    IEnumerator SpawnEnemies()
+    public void SpawnEnemy()
     {
-        yield return new WaitForSeconds(initialSpawnDelay);
+        StartCoroutine(IESpawnEnemy());
+    }
 
-        while (true)
+    IEnumerator IESpawnEnemy()
+    {
+        isSpawning = true;
+
+        while (spawnCount > 0)
         {
-            SpawnEnemyBasedOnDifficulty();
+            Enemy s = Instantiate(spawnedEnemy);
+
+            s.transform.parent = gameObject.transform;
+
+            s.enemyKilledEvent.AddListener(combatManager.IncreaseKill);
+            s.enemyKilledEvent.AddListener(KillEnemy);
+
+            spawnCount--;
+
             yield return new WaitForSeconds(spawnInterval);
         }
+
+        isSpawning = false;
     }
 
-
-    void SpawnEnemyBasedOnDifficulty()
+    public void ResetSpawnCount()
     {
-        if (totalKills >= difficultyLevel * killLimit)
+        if (totalKillWave >= minimumKillsToIncreaseSpawnCount)
         {
-            difficultyLevel++;
-
-            spawnInterval = Mathf.Max(1f, initialSpawnInterval - (difficultyLevel * 0.5f));
-
-            SelectSpawnedEnemies();
+            spawnCountMultiplier += multiplierIncreaseCount;
+            minimumKillsToIncreaseSpawnCount *= spawnCountMultiplier;
+            totalKillWave = 0;
         }
 
-        for (int i = 0; i < spawnedEnemies.Count; i++)
-        {
-            Enemy obj = Instantiate(spawnedEnemies[i]);
-
-            obj.enemySpawner = this;
-            obj.transform.parent = transform;
-        }
+        spawnCount = defaultSpawnCount * spawnCountMultiplier;
     }
 
-    public void OnEnemyKilled()
+    private void KillEnemy()
     {
-        totalKills++;
-    }
-
-    private void SelectSpawnedEnemies()
-    {
-        spawnedEnemies.Clear();
-
-        for (int i = 0; i < enemyVariants.Length; i++)
-        {
-            if (enemyVariants[i].GetLevel() <= difficultyLevel)
-            {
-                spawnedEnemies.Add(enemyVariants[i]);
-            }
-        }
+        totalKill++;
+        totalKillWave++;
     }
 }

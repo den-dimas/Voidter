@@ -1,10 +1,16 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Enemy : MonoBehaviour
 {
   [SerializeField] protected int level;
 
-  public EnemySpawner enemySpawner;
+  public UnityEvent enemyKilledEvent;
+
+  private void Start()
+  {
+    enemyKilledEvent ??= new UnityEvent();
+  }
 
   public void SetLevel(int level)
   {
@@ -18,6 +24,6 @@ public class Enemy : MonoBehaviour
 
   private void OnDestroy()
   {
-    enemySpawner.OnEnemyKilled();
+    enemyKilledEvent.Invoke();
   }
 }
