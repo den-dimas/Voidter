@@ -11,14 +11,16 @@ public class CombatManager : MonoBehaviour
     public int waveNumber = 1;
 
     public int totalEnemies = 0;
+    public int points = 0;
 
-    private void Start()
+    public UICombat uICombat;
+
+    private void OnEnable()
     {
         foreach (EnemySpawner spawner in enemySpawners)
         {
             spawner.combatManager = this;
         }
-
     }
 
     private void FixedUpdate()
@@ -35,12 +37,14 @@ public class CombatManager : MonoBehaviour
                     spawner.ResetSpawnCount();
 
                     totalEnemies += spawner.spawnCount;
+                    uICombat.ChangeEnemiesLeft();
 
                     spawner.SpawnEnemy();
                 }
             }
 
             waveNumber++;
+            uICombat.ChangeWave();
             timer = 0;
         }
     }
@@ -48,5 +52,7 @@ public class CombatManager : MonoBehaviour
     public void IncreaseKill()
     {
         totalEnemies--;
+        uICombat.ChangePoints();
+        uICombat.ChangeEnemiesLeft();
     }
 }

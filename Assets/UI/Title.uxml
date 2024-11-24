@@ -1,0 +1,3 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Label tabindex="-1" text="Voidter" parse-escape-sequences="true" display-tooltip-when-elided="true" style="justify-content: center; align-items: center; align-self: center; position: relative; top: 72px; left: 0; font-size: 50%; -unity-text-align: middle-center; color: rgb(255, 255, 255); -unity-font-style: bold;" />
+</ui:UXML>

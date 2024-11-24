@@ -42,8 +42,8 @@ public class EnemySpawner : MonoBehaviour
 
             s.transform.parent = gameObject.transform;
 
-            s.enemyKilledEvent.AddListener(combatManager.IncreaseKill);
             s.enemyKilledEvent.AddListener(KillEnemy);
+            s.enemyKilledEvent.AddListener(combatManager.IncreaseKill);
 
             spawnCount--;
 
@@ -69,5 +69,6 @@ public class EnemySpawner : MonoBehaviour
     {
         totalKill++;
         totalKillWave++;
+        combatManager.points += spawnedEnemy.GetLevel();
     }
 }
